@@ -16,7 +16,7 @@ function TrendingMovie() {
                 const response = await fetch(
                     `https://api.themoviedb.org/3/trending/movie/${timePeriod}?language=en-US&api_key=${apiKey}`
                 );
-                console.log(apiKey)
+                
                 if (!response.ok) {
                     throw new Error('Failed to fetch trending movies');
                 }
