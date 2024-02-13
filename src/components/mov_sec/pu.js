@@ -15,11 +15,11 @@ function Popular() {
                 const response = await fetch(`https://api.themoviedb.org/3/movie/popular?language=en-US&page=${page}&api_key=${apiKey}`);
 
                 if (!response.ok) {
-                    throw new Error("Failed to fetch Popular");
+                    throw new Error("Failed to fetch");
                 }
 
                 const data = await response.json();
-                setPopulars(data.results);
+                setPopulars(prevData => [...prevData, ...data.results]);
                 setLoader(false)
             } catch (error) {
                 console.error(error);
@@ -30,15 +30,12 @@ function Popular() {
     useEffect(()=>{
         fetchPopularMovies(currentPage);
     }, [currentPage]);
+    
     // next page handling
     const handleNextPage = () => {
-        setCurrentPage((prevPage)=> prevPage +1);
+        setCurrentPage(currentPage +1);
     }
-    // back page handling
-    const handleBackPage = () => {
-        if(currentPage > 1)
-        setCurrentPage((prevPage)=> prevPage -1);
-    }
+
     // navigate the page for information
     const handleclickMovieinfo = (popular) => {
         navigate(`/info_mov_sec/${popular.id}`)
@@ -54,8 +51,8 @@ function Popular() {
                         ):(
                             <>
                             
-                            {populars.map((popular) => (
-                                <div className=' cursor-pointer bg-[#ffffff36] rounded-md shadow-xl  h-[250px] w-60 hover:transform hover:scale-110 hover:transition-transform duration-700 sm:h-[360px]' onClick={()=>handleclickMovieinfo(popular)}>
+                            {populars.map((popular, index) => (
+                                <div className=' cursor-pointer bg-[#ffffff36] rounded-md shadow-xl  h-[250px] w-60 hover:transform hover:scale-110 hover:transition-transform duration-700 sm:h-[360px]' onClick={()=>handleclickMovieinfo(popular)} key={index}>
                                      {/* movie poster */}
                                     {
                                         loader?(
@@ -87,12 +84,8 @@ function Popular() {
                     }
             </div>
              {/* buttons for next and back */}
-            <div className=' text-white flex justify-center items-center gap-10'>
-                        <button className='bg-[#ffffff73] p-2 rounded-[4px] cursor-pointer w-20 shadow-xl hover:bg-[#ff0000]' onClick={handleBackPage} disabled={currentPage === 1}>
-                        Back
-                      </button>
-                      <button className='bg-[#ffffff73] p-2 rounded-[4px] cursor-pointer w-20 shadow-xl hover:bg-[#ff0000]' onClick={handleNextPage}>Next</button>
-
+            <div className=' text-white flex justify-center items-center'>
+                      <button className='bg-[#ffffff73] p-2 rounded-[4px] cursor-pointer w-28 shadow-xl hover:bg-[#ff0000]' onClick={handleNextPage}>Load More</button>
             </div>
 
         </div>

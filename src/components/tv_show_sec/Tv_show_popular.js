@@ -15,11 +15,11 @@ function Tvshow_popular() {
             const response = await fetch(`https://api.themoviedb.org/3/tv/popular?language=en-US&page=${page}&api_key=${apiKey}`);
 
             if (!response.ok) {
-                throw new Error("Failed to fetch Popular");
+                throw new Error("Failed to fetch");
             }
 
             const data = await response.json();
-            setTvShowPopular(data.results);
+            setTvShowPopular(prevData => [...prevData, ...data.results]);
             setLoader(false)
         } catch (error) {
             console.error(error);
@@ -34,13 +34,9 @@ function Tvshow_popular() {
     }, [currentPage]);
     // next page handling
     const handleNextPage = () => {
-        setCurrentPage((prevPage) => prevPage + 1);
+        setCurrentPage(currentPage + 1);
     }
-    // back page handling
-    const handleBackPage = () => {
-        if (currentPage > 1)
-            setCurrentPage((prevPage) => prevPage - 1);
-    }
+  
     // navigate the page for information
     const handleShowInfo = (tvshowpopular) => {
         navigate(`/info_show_sec/${tvshowpopular.id}`)
@@ -56,17 +52,12 @@ function Tvshow_popular() {
                     ):
                     (
                         <>
-                        
-                        
-                        
                         {
                             error ? (
                                 <h1 className='text-[20px] italic text-white font-semibold sm:text-[15px]'>{error.toString()}</h1>
-                            ) : (
-        
-                               
-                                tvshowpopular.map((tvshowpopular) => (
-                                    <div className=' bg-[#ffffff36] rounded-md shadow-xl  h-[250px] w-60 hover:transform hover:scale-110 hover:transition-transform duration-700 sm:h-[360px]' onClick={()=>handleShowInfo(tvshowpopular)}>
+                            ) : (      
+                                tvshowpopular.map((tvshowpopular, index) => (
+                                    <div className=' bg-[#ffffff36] rounded-md shadow-xl  h-[250px] w-60 hover:transform hover:scale-110 hover:transition-transform duration-700 sm:h-[360px]' onClick={()=>handleShowInfo(tvshowpopular)} key={index}>
                                          {/* tv show poster */}
                                         {tvshowpopular.poster_path ? (
                                             <img src={`https://image.tmdb.org/t/p/w500${tvshowpopular.poster_path}`} className='h-40 w-full object-contain bg-[#00000090] rounded-md sm:h-56' alt='movie' />
@@ -91,11 +82,8 @@ function Tvshow_popular() {
                 }
             </div>
              {/* buttons for next and back */}
-            <div className=' text-white flex justify-center items-center gap-10'>
-                <button className='bg-[#ffffff73] p-2 rounded-[4px] cursor-pointer w-20 shadow-xl hover:bg-[#0000ff]' onClick={handleBackPage} disabled={currentPage === 1}>
-                    Back
-                </button>
-                <button className='bg-[#ffffff73] p-2 rounded-[4px] cursor-pointer w-20 shadow-xl hover:bg-[#0000ff]' onClick={handleNextPage}>Next</button>
+            <div className=' text-white flex justify-center items-center'>
+                <button className='bg-[#ffffff73] p-2 rounded-[4px] cursor-pointer w-28 shadow-xl hover:bg-[#0000ff]' onClick={handleNextPage}>Load More</button>
 
             </div>
 

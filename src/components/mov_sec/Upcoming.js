@@ -14,11 +14,11 @@ function Upcoming_Movie() {
             const response = await fetch(`https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=${page}&api_key=${apiKey}`);
 
             if (!response.ok) {
-                throw new Error("Failed to fetch Popular");
+                throw new Error("Failed to fetch");
             }
 
             const data = await response.json();
-            setUpcoming(data.results);
+            setUpcoming(prevData => [...prevData, ...data.results]);
             setLoader(false);
         } catch (error) {
             console.error(error);
@@ -31,12 +31,7 @@ function Upcoming_Movie() {
     }, [currentPage]);
     // next page handling
     const handleNextPage = () => {
-        setCurrentPage((prevPage) => prevPage + 1);
-    }
-    // back page handling
-    const handleBackPage = () => {
-        if (currentPage > 1)
-            setCurrentPage((prevPage) => prevPage - 1);
+        setCurrentPage(currentPage + 1);
     }
     // navigate the page for information
     const handleclickMovieinfo = (upcome) => {
@@ -52,8 +47,8 @@ function Upcoming_Movie() {
                     ):(
                         <>
                         
-                        {upcoming.map((upcome) => (
-                            <div className=' cursor-pointer bg-[#ffffff36] rounded-md shadow-xl  h-[250px] w-60 hover:transform hover:scale-110 hover:transition-transform duration-700  sm:h-[360px]' onClick={() => handleclickMovieinfo(upcome)}>
+                        {upcoming.map((upcome, index) => (
+                            <div className=' cursor-pointer bg-[#ffffff36] rounded-md shadow-xl  h-[250px] w-60 hover:transform hover:scale-110 hover:transition-transform duration-700  sm:h-[360px]' onClick={() => handleclickMovieinfo(upcome)} key={index}>
                                  {/* movie poster */}
                                 {upcome.poster_path ? (
                                     <img src={`https://image.tmdb.org/t/p/w500${upcome.poster_path}`} className='h-40 w-full object-contain bg-[#00000090] rounded-md sm:h-56' alt='movie' />
@@ -75,12 +70,8 @@ function Upcoming_Movie() {
                 }
             </div>
              {/* buttons for next and back */}
-            <div className=' text-white flex justify-center items-center gap-10'>
-                <button className='bg-[#ffffff73] p-2 rounded-[4px] cursor-pointer w-20 shadow-xl hover:bg-[#ff0000]' onClick={handleBackPage} disabled={currentPage === 1}>
-                    Back
-                </button>
-                <button className='bg-[#ffffff73] p-2 rounded-[4px] cursor-pointer w-20 shadow-xl hover:bg-[#ff0000]' onClick={handleNextPage}>Next</button>
-
+            <div className=' text-white flex justify-center items-center'>
+                <button className='bg-[#ffffff73] p-2 rounded-[4px] cursor-pointer w-28 shadow-xl hover:bg-[#ff0000]' onClick={handleNextPage}>Load More</button>
             </div>
 
         </div>

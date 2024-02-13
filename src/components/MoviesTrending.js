@@ -68,8 +68,8 @@ function TrendingMovie() {
                        <Loader/>
                     ):(
                         <>
-                        {trendingMovies.map((movie) => (
-                            <div className=' bg-[rgba(255,255,255,0.21)] rounded-md shadow-xl p-2 h-[250px] w-60 hover:transform hover:scale-110 hover:transition-transform duration-700 sm:h-[360px]' onClick={()=>handleclickTrendingMovieInfo(movie)}>
+                        {trendingMovies.map((movie, index) => (
+                            <div className=' bg-[rgba(255,255,255,0.21)] rounded-md shadow-xl p-2 h-[250px] w-60 hover:transform hover:scale-110 hover:transition-transform duration-700 sm:h-[360px]' onClick={()=>handleclickTrendingMovieInfo(movie)} key={index}>
                                 {
                                     loader ?(
                                         <Loader/>

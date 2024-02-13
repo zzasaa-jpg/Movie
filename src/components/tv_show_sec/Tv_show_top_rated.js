@@ -14,11 +14,11 @@ function Tv_show_top_rated() {
             const response = await fetch(`https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=${page}&api_key=${apiKey}`);
 
             if (!response.ok) {
-                throw new Error("Failed to fetch Popular");
+                throw new Error("Failed to fetch");
             }
 
             const data = await response.json();
-            setTvTopRate(data.results);
+            setTvTopRate(prevData => [...prevData, ...data.results]);
             setLoader(false)
         } catch (error) {
             console.error(error);
@@ -31,13 +31,9 @@ function Tv_show_top_rated() {
     }, [currentPage]);
     // next page handling
     const handleNextPage = () => {
-        setCurrentPage((prevPage) => prevPage + 1);
+        setCurrentPage(currentPage + 1);
     }
-    // back page handling
-    const handleBackPage = () => {
-        if (currentPage > 1)
-            setCurrentPage((prevPage) => prevPage - 1);
-    }
+  
     // navigate the page for information
     const handleShowInfo = (tvtoprate) =>{
         navigate(`/info_show_sec/${tvtoprate.id}`)
@@ -55,8 +51,8 @@ function Tv_show_top_rated() {
                         
                         
                         
-                        {tvtoprate.map((tvtoprate) => (
-                            <div className=' cursor-pointer bg-[#ffffff36] rounded-md shadow-xl  h-[250px] w-60 hover:transform hover:scale-110 hover:transition-transform duration-700 sm:h-[360px]' onClick={()=>handleShowInfo(tvtoprate)}>
+                        {tvtoprate.map((tvtoprate, index) => (
+                            <div className=' cursor-pointer bg-[#ffffff36] rounded-md shadow-xl  h-[250px] w-60 hover:transform hover:scale-110 hover:transition-transform duration-700 sm:h-[360px]' onClick={()=>handleShowInfo(tvtoprate)} key={index}>
                                 {/* tv show poster */}
                                 {tvtoprate.poster_path ? (
                                     <img src={`https://image.tmdb.org/t/p/w500${tvtoprate.poster_path}`} className='h-40 w-full object-contain bg-[#00000090] rounded-md sm:h-56' alt='movie' />
@@ -80,12 +76,8 @@ function Tv_show_top_rated() {
                 }
             </div>
              {/* buttons for next and back */}
-            <div className=' text-white flex justify-center items-center gap-10'>
-                <button className='bg-[#ffffff73] p-2 rounded-[4px] cursor-pointer w-20 shadow-xl hover:bg-[#0000ff]' onClick={handleBackPage} disabled={currentPage === 1}>
-                    Back
-                </button>
-                <button className='bg-[#ffffff73] p-2 rounded-[4px] cursor-pointer w-20 shadow-xl hover:bg-[#0000ff]' onClick={handleNextPage}>Next</button>
-
+            <div className=' text-white flex justify-center items-center'>
+                <button className='bg-[#ffffff73] p-2 rounded-[4px] cursor-pointer w-28 shadow-xl hover:bg-[#0000ff]' onClick={handleNextPage}>Load More</button>
             </div>
 
         </div>

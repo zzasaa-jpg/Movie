@@ -46,8 +46,8 @@ function Trendingtv() {
                   ):(
                     <>
                     
-                    {trendingTv.map((movie) => (
-                        < div className=' bg-[#ffffff36] rounded-md shadow-xl p-2 h-[250px] w-60 hover:transform hover:scale-110 hover:transition-transform duration-700 cursor-pointer sm:h-[360px]' onClick={()=>handleclickTrendingTv(movie)}>
+                    {trendingTv.map((movie, index) => (
+                        < div className=' bg-[#ffffff36] rounded-md shadow-xl p-2 h-[250px] w-60 hover:transform hover:scale-110 hover:transition-transform duration-700 cursor-pointer sm:h-[360px]' onClick={()=>handleclickTrendingTv(movie)} key={index}>
                           {
                             loader ?(
                               <Loader/>

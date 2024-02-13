@@ -13,10 +13,10 @@ function People() {
         try {
             const response = await fetch(`https://api.themoviedb.org/3/person/popular?language=en-US&page=${page}&api_key=${apiKey}`)
             if (!response.ok) {
-                throw new Error('Failed to fetch people');
+                throw new Error('Failed to fetch');
             }
             const data = await response.json();
-            setPeople(data.results);
+            setPeople(prevData => [...prevData, ...data.results]);
             setLoader(false)
 
         } catch (error) {
@@ -32,12 +32,7 @@ function People() {
     }, [currentPage])
     // next page handling
     const handleNextPage = () => {
-        setCurrentPage((prevPage) => prevPage + 1);
-    }
-    // back page handling
-    const handleBackPage = () => {
-        if (currentPage > 1)
-            setCurrentPage((prevPage) => prevPage - 1);
+        setCurrentPage(currentPage + 1);
     }
     // navigate the page for information
     const handleShowInfo=(person)=>{
@@ -52,8 +47,8 @@ function People() {
                         <Loader/>
                     ):(
                         <>
-                        {people.map((person) => (
-                            <div className=' cursor-pointer bg-[#ffffff36] rounded-md shadow-xl  h-[250px] w-60 hover:transform hover:scale-110 hover:transition-transform duration-700 sm:h-[360px]' onClick={()=>handleShowInfo(person)}>
+                        {people.map((person, index) => (
+                            <div className=' cursor-pointer bg-[#ffffff36] rounded-md shadow-xl  h-[250px] w-60 hover:transform hover:scale-110 hover:transition-transform duration-700 sm:h-[360px]' onClick={()=>handleShowInfo(person)} key={index}>
                                  {/* person poster */}
                                 {person.poster_path ? (
                                     <img src={`https://image.tmdb.org/t/p/w500${person.profile_path}`} className='h-40 w-full object-contain bg-[#00000090] rounded-md sm:h-56' alt='person' />
@@ -75,11 +70,8 @@ function People() {
                 }
             </div>
             {/* buttons for next and back */}
-            <div className=' text-white flex justify-center items-center gap-10'>
-                <button className='bg-[#ffffff73] p-2 rounded-[4px] cursor-pointer w-20 shadow-xl hover:bg-[#00ff007e]' onClick={handleBackPage} disabled={currentPage === 1}>
-                    Back
-                </button>
-                <button className='bg-[#ffffff73] p-2 rounded-[4px] cursor-pointer w-20 shadow-xl hover:bg-[#00ff007e]' onClick={handleNextPage}>Next</button>
+            <div className=' text-white flex justify-center items-center'>
+                <button className='bg-[#ffffff73] p-2 rounded-[4px] cursor-pointer w-28 shadow-xl hover:bg-[#00ff007e]' onClick={handleNextPage}>Load More</button>
             </div>
         </div>
     )
