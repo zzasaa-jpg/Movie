@@ -51,7 +51,7 @@ function Email() {
 
             // The signed-in user info
             const user = userCredential.user;
-            console.log(user);
+            // console.log(user);
             localStorage.setItem("isSignIn", true);
             navigate('/app');
         } catch (error) {
