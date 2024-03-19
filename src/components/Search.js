@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import image from './noimage.png'
 import { useNavigate } from 'react-router-dom';
 import Loader from './Loader';
+import ScrollButton from './ScrollButton';
 
 function Search() {
   const [searchResults, setSearchResults] = useState([]);
@@ -72,7 +73,7 @@ function Search() {
           ) : (
             <>
               {searchResults.map((result) => (
-                < div key={result.id} className=' w-full sm:mx-auto sm:w-[600px] lg:w-[800px]'>
+                < div key={result.id} className=' w-full sm:mx-auto sm:w-[600px] lg:w-[800px] mb-0'>
                   <div className=' flex cursor-pointer ' onClick={() => handleclickMovie(result)}>
                     <div className=''>
                       {/* moveie poster */}
@@ -101,6 +102,7 @@ function Search() {
           )
         }
       </div>
+      <ScrollButton/>
     </div>
   );
 }

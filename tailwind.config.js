@@ -14,6 +14,7 @@ module.exports = {
     },
     fontFamily: {
       'font-pop': ['Poppins', 'sans-serif'],
+      'font-open': ['Open Sans', 'sans-serif'],
     }
   },
   backgroundImage: {

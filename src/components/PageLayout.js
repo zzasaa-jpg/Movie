@@ -3,14 +3,14 @@ import Intro from '../components/Intro';
 import MoviesTread from './MoviesTrending';
 import Treadingtv from '../components/treadingtv';
 
-const PageLayout = ({onSearch}) => {
+const PageLayout = () => {
   return (
     // page layouts
     <>
+      <Outlet />
       <Intro />
       <MoviesTread />
       <Treadingtv />
-      <Outlet />
     </>
   );
 };

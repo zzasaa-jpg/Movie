@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../Loader';
+import ScrollButton from '../ScrollButton';
 
 function Top_rate_movie() {
     const [toprated, setToprated] = useState([]);
@@ -76,6 +77,7 @@ function Top_rate_movie() {
             <div className=' text-white flex justify-center items-center'>
                 <button className='bg-[#ffffff73] p-2 rounded-[4px] cursor-pointer w-28 shadow-xl hover:bg-[#ff0000]' onClick={handleNextPage}>Load More</button>
             </div>
+            <ScrollButton/>
 
         </div>
     );

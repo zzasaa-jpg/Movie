@@ -20,6 +20,10 @@ import Infoshowsec from './components/tv_show_sec/Info_show_sec';
 import Infopeoplesec from './/components/people/Info_people_sec';
 import Infosectrending from './components/Info_sec_trending';
 import InfosecMovietrendingday from './components/Info_sec_Movie_treading';
+import Email from './FireBase/Email';
+import SignIn from './FireBase/Signin';
+import PrivateRoutes from './components/Private';
+import Userinfo from './FireBase/User_Info';
 import Nopage from './components/Nopage';
 function App() {
 
@@ -29,26 +33,31 @@ function App() {
       <Header />
         <Routes>
 
-          <Route path="/" element={<PageLayout />} />
-          <Route path='/movetr' element={<MoviesTrending />} />
-          <Route path='/treadingtv' element={<Treadingtv />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/pu" element={<Pu />} />
-          <Route path='/upcoming' element={<Upcoming />} />
-          <Route path='/nowplaying' element={<Nowplaying />} />
-          <Route path='/toprated' element={<Toprated />} />
-          <Route path='airingtoday' element={<AiringToady />} />
-          <Route path='ontheair' element={<Ontheair />} />
-          <Route path='tvshow_popular' element={<Tvshowpopular />} />
-          <Route path='tvshow_top_rated' element={<Tvshowtoprated />} />
-          <Route path='people' element={<People />} />
-          <Route path='search_info/:id' element={<SearchInfo />} />
-          <Route path='info_mov_sec/:id' element={<Infomovsec />} />
-          <Route path='info_show_sec/:id' element={<Infoshowsec />} />
-          <Route path='info_people_sec/:id' element={<Infopeoplesec />} />
-          <Route path='info_sec_trending/:id' element={<Infosectrending />} />
-          <Route path='info_sec_movei_trending_day/:id' element={<InfosecMovietrendingday />} />
-          <Route path='*' element={<Nopage/>}/>
+          <Route element={<PrivateRoutes/>}>
+            <Route path="/app" element={<PageLayout />} />
+            <Route path='/movetr' element={<MoviesTrending />} />
+            <Route path='/treadingtv' element={<Treadingtv />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/pu" element={<Pu />} />
+            <Route path='/upcoming' element={<Upcoming />} />
+            <Route path='/nowplaying' element={<Nowplaying />} />
+            <Route path='/toprated' element={<Toprated />} />
+            <Route path='airingtoday' element={<AiringToady />} />
+            <Route path='ontheair' element={<Ontheair />} />
+            <Route path='tvshow_popular' element={<Tvshowpopular />} />
+            <Route path='tvshow_top_rated' element={<Tvshowtoprated />} />
+            <Route path='people' element={<People />} />
+            <Route path='search_info/:id' element={<SearchInfo />} />
+            <Route path='info_mov_sec/:id' element={<Infomovsec />} />
+            <Route path='info_show_sec/:id' element={<Infoshowsec />} />
+            <Route path='info_people_sec/:id' element={<Infopeoplesec />} />
+            <Route path='info_sec_trending/:id' element={<Infosectrending />} />
+            <Route path='info_sec_movei_trending_day/:id' element={<InfosecMovietrendingday />} />
+            <Route path='user-info' element={<Userinfo/>}/>
+            <Route path='*' element={<Nopage/>}/>
+          </Route>
+          <Route path='/' element={<Email/>}/>
+          <Route path='signin' element={<SignIn/>}/>
 
         </Routes>
       </div>

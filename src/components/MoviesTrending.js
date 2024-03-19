@@ -38,7 +38,7 @@ function TrendingMovie() {
     };
     // navigate the information
     const handleclickTrendingMovieInfo =(movie) =>{
-        navigate(`info_sec_movei_trending_day/${movie.id}`)
+        navigate(`/info_sec_movei_trending_day/${movie.id}`)
     }
     
 

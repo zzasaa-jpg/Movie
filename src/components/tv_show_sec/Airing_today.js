@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../Loader';
+import ScrollButton from '../ScrollButton';
 
 function Airing_today() {
     const [airingtoday, setAiringtoday] = useState([]);
@@ -79,6 +80,7 @@ function Airing_today() {
             <div className=' text-white flex justify-center items-center'>
                 <button className='bg-[#ffffff73] p-2 rounded-[4px] cursor-pointer w-28 shadow-xl hover:bg-[#0000ff]' onClick={handleNextPage}>Load More</button>
             </div>
+            <ScrollButton/>
         </div>
     );
 }
