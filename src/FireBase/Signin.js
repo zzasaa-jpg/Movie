@@ -99,7 +99,7 @@ function SignIn() {
             <ToastContainer />
             <main className='flex flex-col sm:flex-row md:flex-row lg:flex-row justify-center lg:items-center  gap-[5px] sm:gap-[10px] md:gap-[20px] lg:gap-[80px]'>
                 <section className='flex justify-center items-center'>
-                    <img src={logo} alt="logo" className='w-[100px] h-[100px] rounded-xl sm:w-[280px] sm:h-[280px] sm:rounded-2xl md:w-[300px] md:h-[300px] md:rounded-2xl lg:w-[400px] lg:h-[400px] lg:rounded-2xl shadow-2xl shadow-zinc-500' />
+                    <img src={logo} alt="logo" className='hidden sm:w-[280px] sm:h-[280px] sm:rounded-2xl sm:block md:w-[300px] md:h-[300px] md:rounded-2xl md:block lg:w-[400px] lg:h-[400px] lg:rounded-2xl lg:block shadow-2xl shadow-zinc-500' />
                 </section>
                 <section>
                     <div className='flex p-1'>
